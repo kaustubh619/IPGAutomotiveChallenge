@@ -12,13 +12,12 @@ const Navigation: React.FC = () => {
   const navigate = useNavigate()
 
   const handleLogout = () => {
-    navigate('/logout') // Navigate to the logout route
+    navigate('/logout')
   }
 
   return (
     <AppBar position="static" sx={{ bgcolor: '#3B4B5A' }}>
       <Toolbar>
-        {/* Left-aligned Menu Icon */}
         <IconButton
           edge="start"
           color="inherit"
@@ -28,7 +27,6 @@ const Navigation: React.FC = () => {
           <MenuIcon />
         </IconButton>
 
-        {/* Title */}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Welcome to the weather app&nbsp;{' '}
           <Typography

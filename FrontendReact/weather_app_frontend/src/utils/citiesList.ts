@@ -1,4 +1,3 @@
-// src/data/citiesList.ts
 export const cityNames = [
   'New York',
   'Los Angeles',

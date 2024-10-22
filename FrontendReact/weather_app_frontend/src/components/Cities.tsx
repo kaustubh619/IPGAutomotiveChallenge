@@ -12,7 +12,7 @@ interface CityData {
 
 // Function to fetch cities data
 export const fetchCitiesData = async () => {
-  const response = await fetch('http://localhost:8000/cities/', {
+  const response = await fetch('http://localhost:8000/citis/', {
     method: 'GET',
     headers: {
       Authorization: 'token ' + getAuthToken(),
@@ -43,12 +43,14 @@ const Cities: React.FC = () => {
   const [cities, setCities] = useState<CityData[]>([])
   const [error, setError] = useState<string | null>(null)
   const [showSnackbar, setShowSnackbar] = useState<boolean>(false)
+  const [hideChildComponents, setHideChildComponents] = useState<boolean>(false)
 
   // Fetch and resolve cities from the loader promise
   useEffect(() => {
     loaderData.cities.then(setCities).catch(() => {
-      setError('Failed to load cities.')
+      setError('Failed to load cities. Please come back later.')
       setShowSnackbar(true)
+      setHideChildComponents(true)
     })
   }, [loaderData.cities])
 
@@ -68,7 +70,6 @@ const Cities: React.FC = () => {
           throw new Error('Failed to delete the city. Please try again later.')
         }
 
-        // Fetch the updated list of cities after deletion
         const updatedCities = await fetchCitiesData()
         setCities(updatedCities)
       } catch (err) {
@@ -97,10 +98,9 @@ const Cities: React.FC = () => {
           </Alert>
         </Snackbar>
       )}
-      <CitySelector
-        onCityAdded={() => fetchCitiesData().then(setCities)}
-        key="citySelector"
-      />
+      {!hideChildComponents && (
+        <CitySelector onCityAdded={() => fetchCitiesData().then(setCities)} />
+      )}
       <Box
         className="weather-cards"
         display="flex"

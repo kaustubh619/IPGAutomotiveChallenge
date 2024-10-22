@@ -28,7 +28,7 @@ const Login: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '100vh', // Full height of the viewport
+        minHeight: '100vh',
       }}
     >
       <Box

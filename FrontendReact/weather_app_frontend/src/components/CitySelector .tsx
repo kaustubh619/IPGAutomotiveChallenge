@@ -13,7 +13,7 @@ import { cityNames } from '../utils/citiesList'
 import { getAuthToken } from '../utils/auth'
 
 interface CitySelectorProps {
-  onCityAdded: () => void // New prop to notify parent component
+  onCityAdded: () => void
 }
 
 const CitySelector: React.FC<CitySelectorProps> = ({ onCityAdded }) => {
@@ -28,7 +28,7 @@ const CitySelector: React.FC<CitySelectorProps> = ({ onCityAdded }) => {
   const handleAddCity = async () => {
     if (!selectedCity) {
       setError('Please select a city.')
-      setShowSnackbar(true) // Show Snackbar if there's an error
+      setShowSnackbar(true)
       return
     }
 
@@ -37,7 +37,7 @@ const CitySelector: React.FC<CitySelectorProps> = ({ onCityAdded }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: 'token ' + getAuthToken(), // Assume token is stored in localStorage
+          Authorization: 'token ' + getAuthToken(),
         },
         body: JSON.stringify({ city: selectedCity }),
       })
@@ -45,19 +45,17 @@ const CitySelector: React.FC<CitySelectorProps> = ({ onCityAdded }) => {
       if (!response.ok) {
         const errorData = await response.json()
         setError(errorData.detail || 'Failed to add city.')
-        setShowSnackbar(true) // Show Snackbar if there's an error
+        setShowSnackbar(true)
         return
       }
 
-      // Notify the parent component to refresh the city list
       onCityAdded()
 
-      // Reset the form state
       setSelectedCity('')
       setError(null)
     } catch (err) {
       setError('Failed to add city. Please try again later.')
-      setShowSnackbar(true) // Show Snackbar if there's an error
+      setShowSnackbar(true)
     }
   }
 
@@ -83,15 +81,15 @@ const CitySelector: React.FC<CitySelectorProps> = ({ onCityAdded }) => {
         sx={{
           width: 200,
           mb: 2,
-          bgcolor: '#3B4B5A', // Dropdown field background color
-          color: '#ffffff', // Text color to ensure readability
-          '.MuiSelect-select': { backgroundColor: '#3B4B5A' }, // Ensure background color
+          bgcolor: '#3B4B5A',
+          color: '#ffffff',
+          '.MuiSelect-select': { backgroundColor: '#3B4B5A' },
         }}
         MenuProps={{
           PaperProps: {
             sx: {
-              bgcolor: '#3B4B5A', // Background color of dropdown menu
-              color: '#ffffff', // Text color to ensure readability
+              bgcolor: '#3B4B5A',
+              color: '#ffffff',
             },
           },
         }}
@@ -110,7 +108,6 @@ const CitySelector: React.FC<CitySelectorProps> = ({ onCityAdded }) => {
         Add City
       </Button>
 
-      {/* Conditionally render Snackbar only if there is an error */}
       {error && (
         <Snackbar
           open={showSnackbar}

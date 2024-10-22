@@ -6,15 +6,13 @@ const Logout: React.FC = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // Remove token and username from localStorage
     localStorage.removeItem('token')
     localStorage.removeItem('username')
 
-    // Redirect to the login page
     navigate('/login')
   }, [navigate])
 
-  return null // Component does not render anything
+  return null
 }
 
 export default Logout
