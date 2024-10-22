@@ -12,7 +12,7 @@ This repository contains both the backend and frontend components of the Weather
 
 1. First, clone this repository:
 
-   - `git clone <repository-url>`
+   - `git clone https://github.com/kaustubh619/IPGAutomotiveChallenge`
    - Navigate to the cloned directory:
      - `cd IPGAutomotiveChallenge`
 
@@ -31,7 +31,7 @@ This repository contains both the backend and frontend components of the Weather
 
 1. First, clone this repository:
 
-   - `git clone <repository-url>`
+   - `git clone https://github.com/kaustubh619/IPGAutomotiveChallenge`
    - `cd IPGAutomotiveChallenge`
 
 2. Backend Setup:
@@ -51,7 +51,7 @@ This repository contains both the backend and frontend components of the Weather
 
 3. Frontend Setup:
 
-   - Navigate to the `FrontendReact` directory: `cd ../../FrontendReact`
+   - Navigate to the `FrontendReact` directory
    - Inside `FrontendReact`, go to the `weather_app_frontend` directory:
      - `cd weather_app_frontend`
    - Open a command prompt inside this directory and install the frontend dependencies (this might take some time):
