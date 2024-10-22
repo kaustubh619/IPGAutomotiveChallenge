@@ -1,4 +1,4 @@
-# IPG Automotive Challenge - Weather App
+# Weather App
 
 This repository contains both the backend and frontend components of the Weather App. Follow the instructions below to set up and run the application.
 
@@ -68,7 +68,7 @@ This repository contains both the backend and frontend components of the Weather
 
 
 ## Login Credentials
-Use the following credentials to log in to the backend admin panel:
+Use the following credentials to log in to the application:
 
 - Username: ipgautomotive
 - Password: carmaker
