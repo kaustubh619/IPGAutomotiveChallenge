@@ -65,3 +65,10 @@ This repository contains both the backend and frontend components of the Weather
    Once both the backend and frontend are running, you can open your browser and navigate to:
    - Frontend: `http://localhost:3000`
    - Backend API: `http://127.0.0.1:8000/admin`
+
+
+## Login Credentials
+Use the following credentials to log in to the backend admin panel:
+
+Username: ipgautomotive
+Password: carmaker
