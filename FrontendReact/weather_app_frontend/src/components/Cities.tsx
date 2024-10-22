@@ -7,9 +7,9 @@ import {
   Typography,
 } from '@mui/material'
 import { useLoaderData, defer, Await } from 'react-router-dom'
+import CitySelector from './CitySelector '
 import Weather from './Weather'
 import { getAuthToken } from '../utils/auth'
-import CitySelector from './CitySelector '
 
 interface CityData {
   id: number
@@ -49,7 +49,7 @@ const Cities: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
   const [showSnackbar, setShowSnackbar] = useState<boolean>(false)
   const [hideChildComponents, setHideChildComponents] = useState<boolean>(false)
-  const [cities, setCities] = useState<CityData[]>([])
+  const [cities, setCities] = useState<CityData[] | null>(null)
 
   const handleCityAdded = async () => {
     try {
@@ -77,7 +77,6 @@ const Cities: React.FC = () => {
           throw new Error('Failed to delete the city. Please try again later.')
         }
 
-        // Refetch cities data after deletion
         await handleCityAdded()
       } catch (err) {
         setError('Could not delete the city. Please try again later.')
@@ -136,10 +135,8 @@ const Cities: React.FC = () => {
           }
         >
           {(resolvedCities: CityData[]) => {
-            // Set the initial cities from loaderData if not already set
-            if (cities.length === 0) {
-              setCities(resolvedCities)
-            }
+            // Use cities from state if they are already set, otherwise use resolvedCities
+            const displayCities = cities ?? resolvedCities
             return (
               <>
                 {!hideChildComponents && (
@@ -151,7 +148,7 @@ const Cities: React.FC = () => {
                   flexWrap="wrap"
                   justifyContent="center"
                 >
-                  {cities.map((city) => (
+                  {displayCities.map((city) => (
                     <Weather
                       key={city.id}
                       city={city.city}

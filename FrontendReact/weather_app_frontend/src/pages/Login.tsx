@@ -111,7 +111,7 @@ export const action: ActionFunction = async ({ request, params }) => {
       },
       body: JSON.stringify(postData),
     })
-    console.log(response)
+    
     if (response.ok) {
       const resData = await response.json()
 
