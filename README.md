@@ -70,5 +70,5 @@ This repository contains both the backend and frontend components of the Weather
 ## Login Credentials
 Use the following credentials to log in to the backend admin panel:
 
-Username: ipgautomotive
-Password: carmaker
+- Username: ipgautomotive
+- Password: carmaker
