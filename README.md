@@ -37,7 +37,7 @@ This repository contains both the backend and frontend components of the Weather
 2. Backend Setup:
 
    - Navigate to the `BackendDjango` directory: `cd BackendDjango`
-   - Open a command prompt inside this directory and create a virtual environment: `python -m venv venv`
+   - Open a command prompt inside this directory and create a virtual environment: `virtualenv venv`
    - Activate the virtual environment:
      - On Windows: `venv\Scripts\activate`
      - On macOS/Linux: `source venv/bin/activate`
