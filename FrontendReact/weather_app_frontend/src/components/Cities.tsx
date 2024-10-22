@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { Box, Alert, Snackbar } from '@mui/material'
-import { useLoaderData } from 'react-router-dom'
-import CitySelector from './CitySelector '
+import React, { useState, Suspense } from 'react'
+import {
+  Box,
+  Alert,
+  Snackbar,
+  CircularProgress,
+  Typography,
+} from '@mui/material'
+import { useLoaderData, defer, Await } from 'react-router-dom'
 import Weather from './Weather'
 import { getAuthToken } from '../utils/auth'
+import CitySelector from './CitySelector '
 
 interface CityData {
   id: number
@@ -12,7 +18,7 @@ interface CityData {
 
 // Function to fetch cities data
 export const fetchCitiesData = async () => {
-  const response = await fetch('http://localhost:8000/citis/', {
+  const response = await fetch('http://localhost:8000/cities/', {
     method: 'GET',
     headers: {
       Authorization: 'token ' + getAuthToken(),
@@ -33,26 +39,27 @@ export const fetchCitiesData = async () => {
 
 // Loader function using defer
 export const citiesLoader = () => {
-  return {
+  return defer({
     cities: fetchCitiesData(),
-  }
+  })
 }
 
 const Cities: React.FC = () => {
   const loaderData = useLoaderData() as { cities: Promise<CityData[]> }
-  const [cities, setCities] = useState<CityData[]>([])
   const [error, setError] = useState<string | null>(null)
   const [showSnackbar, setShowSnackbar] = useState<boolean>(false)
   const [hideChildComponents, setHideChildComponents] = useState<boolean>(false)
+  const [cities, setCities] = useState<CityData[]>([])
 
-  // Fetch and resolve cities from the loader promise
-  useEffect(() => {
-    loaderData.cities.then(setCities).catch(() => {
-      setError('Failed to load cities. Please come back later.')
+  const handleCityAdded = async () => {
+    try {
+      const updatedCities = await fetchCitiesData()
+      setCities(updatedCities)
+    } catch (err) {
+      setError('Could not update cities. Please try again later.')
       setShowSnackbar(true)
-      setHideChildComponents(true)
-    })
-  }, [loaderData.cities])
+    }
+  }
 
   const handleDeleteCity = async (id: number) => {
     const confirm = window.confirm('Are you sure you want to remove this city?')
@@ -70,8 +77,8 @@ const Cities: React.FC = () => {
           throw new Error('Failed to delete the city. Please try again later.')
         }
 
-        const updatedCities = await fetchCitiesData()
-        setCities(updatedCities)
+        // Refetch cities data after deletion
+        await handleCityAdded()
       } catch (err) {
         setError('Could not delete the city. Please try again later.')
         setShowSnackbar(true)
@@ -86,35 +93,77 @@ const Cities: React.FC = () => {
 
   return (
     <>
-      {error && (
-        <Snackbar
-          open={showSnackbar}
-          autoHideDuration={5000}
-          onClose={handleCloseSnackbar}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        >
-          <Alert severity="error" onClose={handleCloseSnackbar}>
-            {error}
-          </Alert>
-        </Snackbar>
-      )}
-      {!hideChildComponents && (
-        <CitySelector onCityAdded={() => fetchCitiesData().then(setCities)} />
-      )}
-      <Box
-        className="weather-cards"
-        display="flex"
-        flexWrap="wrap"
-        justifyContent="center"
+      <Snackbar
+        open={showSnackbar}
+        autoHideDuration={5000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        {cities.map((city) => (
-          <Weather
-            key={city.id}
-            city={city.city}
-            onDelete={() => handleDeleteCity(city.id)}
-          />
-        ))}
-      </Box>
+        <Alert severity="error" onClose={handleCloseSnackbar}>
+          {error}
+        </Alert>
+      </Snackbar>
+
+      <Suspense
+        fallback={
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            height="50vh"
+          >
+            <CircularProgress />
+            <Typography variant="h6" ml={2}>
+              Loading cities, please wait...
+            </Typography>
+          </Box>
+        }
+      >
+        <Await
+          resolve={loaderData.cities}
+          errorElement={
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              height="50vh"
+              textAlign="center"
+            >
+              <Alert severity="error" variant="filled">
+                Failed to load cities. Please try again later.
+              </Alert>
+            </Box>
+          }
+        >
+          {(resolvedCities: CityData[]) => {
+            // Set the initial cities from loaderData if not already set
+            if (cities.length === 0) {
+              setCities(resolvedCities)
+            }
+            return (
+              <>
+                {!hideChildComponents && (
+                  <CitySelector onCityAdded={handleCityAdded} />
+                )}
+                <Box
+                  className="weather-cards"
+                  display="flex"
+                  flexWrap="wrap"
+                  justifyContent="center"
+                >
+                  {cities.map((city) => (
+                    <Weather
+                      key={city.id}
+                      city={city.city}
+                      onDelete={() => handleDeleteCity(city.id)}
+                    />
+                  ))}
+                </Box>
+              </>
+            )
+          }}
+        </Await>
+      </Suspense>
     </>
   )
 }

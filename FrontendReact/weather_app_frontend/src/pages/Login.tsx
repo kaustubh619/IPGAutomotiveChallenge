@@ -28,7 +28,7 @@ const Login: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '100vh',
+        minHeight: '100vh', // Full height of the viewport
       }}
     >
       <Box
@@ -102,29 +102,29 @@ export const action: ActionFunction = async ({ request, params }) => {
     password: formData.get('password'),
   }
 
-  // Send a request to the backend for authentication
-  const response = await fetch('http://localhost:8000/login/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(postData),
-  })
+  try {
+    // Send a request to the backend for authentication
+    const response = await fetch('http://localhost:8000/login/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(postData),
+    })
+    console.log(response)
+    if (response.ok) {
+      const resData = await response.json()
 
-  if (response.ok) {
-    const resData = await response.json()
-
-    if (response.status === 200) {
-      localStorage.setItem('token', resData.token)
-      localStorage.setItem('username', resData.username)
-      return redirect('/')
-    }
-  } else {
-    try {
+      if (response.status === 200) {
+        localStorage.setItem('token', resData.token)
+        localStorage.setItem('username', resData.username)
+        return redirect('/')
+      }
+    } else {
       const errorData = await response.json()
       return { error: errorData.non_field_errors }
-    } catch (e) {
-      return { error: 'An error occurred. Please try again later.' }
     }
+  } catch (e) {
+    return { error: 'An error occurred. Please try again later.' }
   }
 }
