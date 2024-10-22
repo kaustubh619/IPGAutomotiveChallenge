@@ -8,6 +8,7 @@ This repository contains both the backend and frontend components of the Weather
 Prerequisites
 
 - Docker
+- Git
 
 1. First, clone this repository:
 
