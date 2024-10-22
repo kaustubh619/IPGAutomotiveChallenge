@@ -2,13 +2,12 @@
 
 This repository contains both the backend and frontend components of the Weather App. Follow the instructions below to set up and run the application.
 
-## Prerequisites
-
-- Python 3.6.x
-- Node.js and npm
-- Git
 
 ## How to Run the Application Using Docker
+
+Prerequisites
+
+- Docker
 
 1. First, clone this repository:
 
@@ -28,6 +27,12 @@ This repository contains both the backend and frontend components of the Weather
    - Backend API: `http://127.0.0.1:8000/admin`
 
 ## How to Run the Application Without Docker
+
+Prerequisites
+
+- Python 3.6.x
+- Node.js and npm
+- Git
 
 1. First, clone this repository:
 
