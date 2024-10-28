@@ -24,10 +24,13 @@ Make sure you have the following installed on your machine:
 3. Install Dependencies: Run the command to install the required Node.js packages:
    `npm install`
 
-4. Generate Prisma Client: Execute the command to generate the Prisma client:
+4. Install the @prisma/client npm package:
+   `npm install @prisma/client`
+
+5. Generate Prisma Client: Execute the command to generate the Prisma client:
    `npx prisma generate`
 
-5. Run the Application: Start the development server with:
+6. Run the Application: Start the development server with:
    `npm run dev`
 
 ### Access the Application
