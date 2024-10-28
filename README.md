@@ -1,80 +1,53 @@
-# Weather App
+# Welcome to Remix!
 
-This repository contains both the backend and frontend components of the Weather App. Follow the instructions below to set up and run the application.
+- [Remix Docs](https://remix.run/docs)
 
+## Development
 
-## How to Run the Application Using Docker
+From your terminal:
 
-Prerequisites
+```sh
+npm run dev
+```
 
-- Docker
-- Git
+This starts your app in development mode, rebuilding assets on file changes.
 
-1. First, clone this repository:
+## Deployment
 
-   - `git clone https://github.com/kaustubh619/IPGAutomotiveChallenge`
-   - Navigate to the cloned directory:
-     - `cd IPGAutomotiveChallenge`
+First, build your app for production:
 
-2. Run the application with Docker Compose:
+```sh
+npm run build
+```
 
-   - Open a command prompt and run:
-     - `docker-compose up`
+Then run the app in production mode:
 
-   This command will start both the backend and frontend services using Docker.
+```sh
+npm start
+```
 
-3. Access the Application:
-   - Frontend: `http://localhost:3000`
-   - Backend API: `http://127.0.0.1:8000/admin`
+Now you'll need to pick a host to deploy it to.
 
-## How to Run the Application Without Docker
+### DIY
 
-Prerequisites
+If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
 
-- Python 3.6.x
-- Node.js and npm
-- Git
+Make sure to deploy the output of `remix build`
 
-1. First, clone this repository:
+- `build/`
+- `public/build/`
 
-   - `git clone https://github.com/kaustubh619/IPGAutomotiveChallenge`
-   - `cd IPGAutomotiveChallenge`
+### Using a Template
 
-2. Backend Setup:
+When you ran `npx create-remix@latest` there were a few choices for hosting. You can run that again to create a new project, then copy over your `app/` folder to the new project that's pre-configured for your target server.
 
-   - Navigate to the `BackendDjango` directory: `cd BackendDjango`
-   - Open a command prompt inside this directory and create a virtual environment: `virtualenv venv`
-   - Activate the virtual environment:
-     - On Windows: `venv\Scripts\activate`
-     - On macOS/Linux: `source venv/bin/activate`
-   - Install the required dependencies: `pip install -r requirements.txt`
-   - Now, go inside the `weather_app_backend` directory:
-     - `cd weather_app_backend`
-   - Run the backend server using the command:
-     - `python manage.py runserver`
-
-   The backend will be running on `http://127.0.0.1:8000/admin`.
-
-3. Frontend Setup:
-
-   - Navigate to the `FrontendReact` directory
-   - Inside `FrontendReact`, go to the `weather_app_frontend` directory:
-     - `cd weather_app_frontend`
-   - Open a command prompt inside this directory and install the frontend dependencies (this might take some time):
-     - `npm install`
-   - Start the frontend application:
-     - `npm start`
-
-   The frontend will be accessible on `http://localhost:3000`.
-
-4. Access the Application:
-   Once both the backend and frontend are running, you can open your browser and navigate to:
-   - Frontend: `http://localhost:3000`
-   - Backend API: `http://127.0.0.1:8000/admin`
-
-
-## Login Credentials
-Use the following credentials to log in to the application:
-
-- Username: ipgautomotive
-- Password: carmaker
+```sh
+cd ..
+# create a new project, and pick a pre-configured host
+npx create-remix@latest
+cd my-new-remix-app
+# remove the new project's app (not the old one!)
+rm -rf app
+# copy your app over
+cp -R ../my-old-remix-app/app app
+```
