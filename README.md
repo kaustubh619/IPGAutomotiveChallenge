@@ -1,53 +1,43 @@
-# Welcome to Remix!
+# IPG Automotive Challenge
 
-- [Remix Docs](https://remix.run/docs)
+This repository contains the code for the IPG Automotive Challenge application.
 
-## Development
+## Getting Started
 
-From your terminal:
+To set up and run the application locally, follow these steps:
 
-```sh
-npm run dev
-```
+### Prerequisites
 
-This starts your app in development mode, rebuilding assets on file changes.
+Make sure you have the following installed on your machine:
 
-## Deployment
+- Git
+- Node.js (with npm)
+- Prisma
 
-First, build your app for production:
+### Installation Steps
 
-```sh
-npm run build
-```
+1. Clone the Repository: Open your terminal and run the command to clone the repository:
+   `git clone https://github.com/kaustubh619/IPGAutomotiveChallenge.git`
 
-Then run the app in production mode:
+2. Navigate to the Project Directory: Change into the project directory with:
+   `cd IPGAutomotiveChallenge`
 
-```sh
-npm start
-```
+3. Install Dependencies: Run the command to install the required Node.js packages:
+   `npm install`
 
-Now you'll need to pick a host to deploy it to.
+4. Generate Prisma Client: Execute the command to generate the Prisma client:
+   `npx prisma generate`
 
-### DIY
+5. Run the Application: Start the development server with:
+   `npm run dev`
 
-If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
+### Access the Application
 
-Make sure to deploy the output of `remix build`
+Open your browser and go to http://localhost:3000.
 
-- `build/`
-- `public/build/`
+### Login Credentials
 
-### Using a Template
+Use the following credentials to log in:
 
-When you ran `npx create-remix@latest` there were a few choices for hosting. You can run that again to create a new project, then copy over your `app/` folder to the new project that's pre-configured for your target server.
-
-```sh
-cd ..
-# create a new project, and pick a pre-configured host
-npx create-remix@latest
-cd my-new-remix-app
-# remove the new project's app (not the old one!)
-rm -rf app
-# copy your app over
-cp -R ../my-old-remix-app/app app
-```
+- Username: `ipgautomotive`
+- Password: `carmaker`
